@@ -2,15 +2,24 @@
 
 name: tryhair-openclaw
 description: AI Hairstyle Try-On & Face Shape Analysis – Upload a photo to analyze face shape and instantly try recommended hairstyles. UID required.
------------------------------------------------------------------------------------------------------------------------------------------------------
+homepage: https://tryhair.ai
+
+---
 
 # tryhair.ai OpenClaw Skill
+
+## 🔗 Resources
+
+- **Official Service**: [https://tryhair.ai](https://tryhair.ai)
+- **Source Code & Documentation**: [GitHub Repository](https://github.com/guokai-01/tryhair-skill)
 
 ## 🔒 Privacy & Data Handling
 
 - Images are processed temporarily and **not stored permanently**
 - UID is used only for session management
 - All data is deleted after the session ends
+
+---
 
 ## Overview
 
