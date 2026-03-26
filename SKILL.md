@@ -15,9 +15,10 @@ homepage: https://tryhair.ai
 
 ## 🔒 Privacy & Data Handling
 
-- Images are processed temporarily and **not stored permanently**
-- UID is used only for session management
-- All data is deleted after the session ends
+- Images are processed temporarily
+- Generated output images are saved locally during the session
+- Users should manually delete generated images if they wish to remove them
+- UID is used only for session management and is not stored persistently
 
 ---
 
@@ -397,6 +398,12 @@ Allowed:
 * "try this"
 * "try [style]"
 * [style]
+
+---
+
+## 🧹 Cleanup
+
+After using this skill, generated images may remain in the `output/` directory. Users can delete these files manually if they wish to remove them.
 
 ---
 
