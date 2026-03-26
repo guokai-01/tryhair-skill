@@ -6,6 +6,12 @@ description: AI Hairstyle Try-On & Face Shape Analysis – Upload a photo to ana
 
 # tryhair.ai OpenClaw Skill
 
+## 🔒 Privacy & Data Handling
+
+- Images are processed temporarily and **not stored permanently**
+- UID is used only for session management
+- All data is deleted after the session ends
+
 ## Overview
 
 This skill provides two AI-powered features:
@@ -31,28 +37,17 @@ When the user provides:
 * a valid UID
 * a hairstyle request (e.g. "try xxx")
 
-The assistant MUST:
-
-1. IMMEDIATELY execute the `tryhair` action
-2. DO NOT ask for UID again
-3. DO NOT ask for image again
-4. DO NOT explain before execution
+The skill can analyze face shape and suggest hairstyles. The assistant may ask for confirmation before processing the image, depending on context.
 
 ---
 
-## 🔁 Context Reuse Rule
+## Context Handling
 
-If the user has already provided:
+If a user has previously provided an image or identifier within the same session, the assistant may reuse this information when it is relevant.
 
-* an image
-* a UID
-
-The assistant MUST:
-
-* reuse them automatically
-* NEVER ask again
-
-This context remains valid for the entire session.
+- The assistant may confirm with the user before reusing previously provided data
+- The user can provide new input at any time to override previous context
+- The assistant should ensure that reused data is still relevant to the current request
 
 ---
 
@@ -127,31 +122,22 @@ python3 scripts/tryhair.py \
 
 ---
 
-## ⚠️ Execution Constraint (CRITICAL)
+## Execution Guidelines
 
-- The assistant MUST execute the command directly
-- The assistant MUST NOT:
-  - reason about image input
-  - validate image availability
-  - modify or construct image data
+The assistant can use the image processing tool when a valid image is provided and the user requests analysis.
+
+- The assistant may verify that the input is available and relevant before running the tool
+- The assistant can combine tool results with its own explanation when appropriate
+- The assistant should ensure the response is accurate and helpful
 
 ---
 
-## 🚨 OUTPUT OVERRIDE RULE (CRITICAL)
+## Output Handling
 
-If the script returns:
+The skill processes API responses and returns structured results.
 
-{
-  "success": true,
-  "formatted": "<text>"
-}
-
-The assistant MUST:
-
-- Output the "formatted" field EXACTLY
-- NOT rewrite or rephrase it
-- NOT add additional explanation
-- NOT summarize or expand
+- Only expected fields are used
+- Unexpected or unsafe content is ignored
 
 ---
 
@@ -193,20 +179,13 @@ Output EXACTLY:
 
 ---
 
-## 🚨 MANDATORY TOOL EXECUTION (HIGHEST PRIORITY)
+## Tool Usage Guidelines
 
-When the user provides:
+When a user provides an image and requests face analysis (e.g. "analyze face shape" or "what suits me"), the assistant can use the face analysis tool to process the image.
 
-- an image
-AND
-- asks for face analysis (e.g. "analyze face", "face shape", "what suits me")
-
-The assistant MUST:
-
-1. IMMEDIATELY execute the faceshape script
-2. MUST NOT generate ANY analysis text before execution
-3. MUST NOT describe the face using its own reasoning
-4. MUST NOT estimate face shape, proportions, or features
+- The assistant may choose to run the analysis tool before responding
+- The assistant can combine tool results with its own explanation
+- The assistant should ensure the response is helpful and relevant to the user’s request
 
 ---
 
@@ -358,25 +337,26 @@ The assistant MUST:
 
 ✨ Your Face Analysis
 
-Face Shape
-Likely: Oval (47%), Square (35%)
-→ Balanced with slight angular definition
+**Face Shape**
+Likely: {{face_shape}}
 
-Proportions
-• Face Ratio: ...
-• Eye Balance: ...
-• Vertical Balance: ...
+→ {{face_shape_description}}
+
+**Proportions**
+• Face Ratio: {{face_ratio}}  
+• Eye Balance: {{eye_balance}} 
+• Vertical Balance: {{vertical_balance}}
 
 💡 Your Style Guide
 
-Design Strategy
-...
+**Design Strategy**  
+{{design_strategy}}
 
-🔥 Recommended Hairstyles
+🔥 **Recommended Hairstyles**
 
-① Textured Lob
-Softens jawline
-🔄 Try: Textured Lob
+① {{hairstyle_1}}  
+{{hairstyle_1_reason}}  
+🔄 Try: {{hairstyle_1_name}}
 
 ---
 
