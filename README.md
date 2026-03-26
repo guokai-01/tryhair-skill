@@ -1,9 +1,3 @@
----
-
-name: tryhair-openclaw
-description: AI Hairstyle Try-On & Face Shape Analysis – Upload a photo to try a hairstyle or analyze your face shape. UID verification required.
--------------------------------------------------------------------------------------------------------------------------------------------------
-
 # tryhair.ai OpenClaw Skill
 
 ## Overview
